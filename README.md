@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+# MyCalendrr - Neon Open Source Starter Kit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MyCalendrr is a powerful open source starter kit for building a multi-user appointment manager application. It uses a Neon Postgres database for efficient data storage and retrieval. The project is my submission for the Neon OSS Starter Kit Challenge on DEV and aims to provide developers with a solid foundation for quickly setting up a ReactJS Frontend and Flask Server Project in developing appointment management applications.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Multi-user support: MyCalendrr allows multiple users to manage their appointments efficiently and share links to clients to book appointments.
+- Frontend Stack: TypeScript-ReactJS, TailwindCSS, and Vite.
+- Backend: Python/Flask and SQLAlchemy and Neon Postgres Database.
+- Monorepo setup: This kit follows a monorepo setup, allowing for better code organization and easier collaboration among developers.
+- GitHub Actions workflow: Basic setup for GitHub Actions workflow - customizable based on your project needs.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Clone the repository:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+git clone https://github.com/Cre8steveDev/Neon_Postgres_Flask_SqlAlchemy_ReactJS_Starter_Kit.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- Install the required dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+# For the frontend
+cd client && npm install
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+# For the backend
+cd server && python3 -m venv ./venv
+
+# On Linux Machines
+source ./venv/bin/activate
+
+# Install dependencies for the backend
+pip install -r requirements.txt
+
 ```
+
+## Update Credentials in the .env in the server/ directory
+
+```bash
+DEV_BRANCH_NEON_DATABASE_URI=""
+MAIN_BRANCH_NEON_DATABASE_URI=""
+FLASK_APP_SECRET=""
+
+```
+
+## Start the Project
+
+1. Start the frontend development server: `npm run dev`
+2. Start the backend server: `python app.py`
+3. Access MyCalendrr in your browser at `http://localhost:3000`
+
+## Contributing
+
+Update coming soon. Till then, happy coding.
+
+## License
+
+MyCalendrr is released under the [MIT License](LICENSE).
+
+## AUTHOR
+
+- Stephen Omoregie: Creator and maintainer of MyCalendrr
+
+## 🙏 Acknowledgements
+
+Thanks to Neon for hosting this challenge and providing an amazing Postgres platform!
+Challenge Link: <https://dev.to/t/neonchallenge>
