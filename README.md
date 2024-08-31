@@ -40,7 +40,7 @@ pip install -r requirements.txt
 ```bash
 DEV_BRANCH_NEON_DATABASE_URI=""
 MAIN_BRANCH_NEON_DATABASE_URI=""
-FLASK_APP_SECRET=""
+JWT_SECRET_KEY=""
 
 ```
 
@@ -66,3 +66,12 @@ MyCalendrr is released under the [MIT License](LICENSE).
 
 Thanks to Neon for hosting this challenge and providing an amazing Postgres platform!
 Challenge Link: <https://dev.to/t/neonchallenge>
+
+## Research Materials and Documentation
+
+Python and VsCode can be a bit whacky most times. If after installing a package, and your Vscode is still screaming "I'm Losssst!". Just restart the language server. Ctrl/Cmd + Shift + P then search `Language Server`
+
+1. Flask Migration - <https://blog.miguelgrinberg.com/post/how-to-add-flask-migrate-to-an-existing-project>
+2. Flask SQLAlchemy - <https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/>
+3. Flask Bcrypt - <https://pypi.org/project/Flask-Bcrypt/>
+4. Flask JWT Extended <https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage.html>
