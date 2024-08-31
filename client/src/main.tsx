@@ -1,8 +1,9 @@
+import './index.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
-import './index.css';
+import Layout from './Layout.tsx';
 import Dashboard from './routes/Dashboard.tsx';
+import Home from './routes/Home.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 /**
@@ -12,11 +13,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Layout />,
     children: [
       {
         path: '/',
-        element: <App />,
+        element: <Home />,
       },
       {
         path: '/dashboard',

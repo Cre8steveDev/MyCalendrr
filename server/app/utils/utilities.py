@@ -9,11 +9,13 @@ def get_validated_user(user_identity: str) -> Union[User, None]:
     return user
 
 
-def parse_appointment_data(request_data: Dict[str, Any], user_id: str) -> Dict[str, Any]:
+def parse_appointment_data(
+    request_data: Dict[str, Any], user_id: str
+) -> Dict[str, Any]:
     return {
         "user_id": user_id,
         "title": request_data.get("title"),
         "description": request_data.get("description"),
         "amount_payable": request_data.get("amount_payable"),
-        "available_dates": request_data.get("available_dates")
+        "available_dates": request_data.get("available_dates"),
     }
