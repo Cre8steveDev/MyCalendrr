@@ -29,7 +29,8 @@ class User(db.Model):
         verify_otp(otp): Verify One-Time Password
         get_by_email(email): Get user by email
     """
-    __tablename__ = 'users'
+
+    __tablename__ = "users"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     full_name = Column(String(100), nullable=False)
@@ -40,10 +41,10 @@ class User(db.Model):
     title = Column(String(100))
     bank_name = Column(String(100))
     bank_account = Column(BigInteger)
-    
+
     role = Column(Enum("ADMIN", "USER", name="role_type"), default="USER")
     account_verified = Column(Boolean, default=False)
-    
+
     OTP = Column(Integer)
     OTP_expiry = Column(db.DateTime)
 
@@ -52,25 +53,25 @@ class User(db.Model):
     additional_info = Column(JSONB)
 
     # Relationship to Appointment
-    # By setting uselist=False, you're telling 
-    # SQLAlchemy to expect a one-to-one relationship 
-    # between User and Appointment, rather than 
+    # By setting uselist=False, you're telling
+    # SQLAlchemy to expect a one-to-one relationship
+    # between User and Appointment, rather than
     # a one-to-many relationship.
-    appointment = relationship('Appointment', back_populates='user', uselist=False)
+    appointment = relationship("Appointment", back_populates="user", uselist=False)
 
     def __repr__(self):
-        return f'<User {self.full_name}>'
+        return f"<User {self.full_name}>"
 
     def generate_otp(self):
         self.OTP = random.randint(100000, 909090)
-        self.OTP_expiry = datetime.now() + timedelta(minutes=10) 
+        self.OTP_expiry = datetime.now() + timedelta(minutes=10)
         db.session.commit()
         return self.OTP
 
     def verify_otp(self, otp):
         if self.OTP == otp and datetime.now() <= self.OTP_expiry:
             self.account_verified = True
-            self.OTP = None  
+            self.OTP = None
             self.OTP_expiry = None
             db.session.commit()
             return True

@@ -75,3 +75,4 @@ Python and VsCode can be a bit whacky most times. If after installing a package,
 2. Flask SQLAlchemy - <https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/>
 3. Flask Bcrypt - <https://pypi.org/project/Flask-Bcrypt/>
 4. Flask JWT Extended <https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage.html>
+5. Check out available options for JWT <https://flask-jwt-extended.readthedocs.io/en/stable/options.html>

@@ -1,6 +1,7 @@
 """
 Appointment Database model
 """
+
 import uuid
 from app import db
 from datetime import date
@@ -8,6 +9,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy import Column, String, Text, Numeric, ForeignKey, Date
+
 
 class Appointment(db.Model):
     """
@@ -28,21 +30,24 @@ class Appointment(db.Model):
         book_date(date): Book a date
         cancel_booking(date): Cancel a booking
     """
-    __tablename__ = 'appointments'
+
+    __tablename__ = "appointments"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('users.id', ondelete="CASCADE"), nullable=False)
+    user_id = Column(
+        UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
+    )
     title = Column(String(100), nullable=False)
-    description = Column(Text)
-    amount_payable = Column(Numeric(10, 2)) # 2d.p
+    description = Column(Text, nullable=False)
+    amount_payable = Column(Numeric(10, 2), nullable=False)  # 2d.p
     available_dates = Column(MutableList.as_mutable(ARRAY(Date)))
     booked_dates = Column(MutableList.as_mutable(ARRAY(Date)))
 
     # Relationship to User
-    user = relationship('User', back_populates='appointment')
+    user = relationship("User", back_populates="appointment")
 
     def __repr__(self):
-        return f'<Appointment {self.title}>'
+        return f"<Appointment {self.title}>"
 
     def add_available_date(self, new_date):
         if isinstance(new_date, date) and new_date not in self.available_dates:
@@ -69,5 +74,3 @@ class Appointment(db.Model):
             self.available_dates.append(date_to_cancel)
             return True
         return False
-    
-    
