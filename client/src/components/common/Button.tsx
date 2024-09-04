@@ -23,10 +23,10 @@ const Button: React.FC<ButtonProps> = ({
   otherProps,
 }) => {
   const primaryBtnClass =
-    'border-primary-green bg-primary-green text-white hover:text-primary-green hover:bg-white hover:border-primary-green';
+    'border-primary-green bg-primary-green text-white hover:text-primary-green hover:bg-white hover:border-primary-green hover:cursor-secondary';
 
   const secondaryBtnClass =
-    'border-primary-orange text-primary-orange hover:text-white hover:bg-primary-orange hover:border-primary-orange';
+    'border-primary-orange text-primary-orange hover:text-white hover:bg-primary-orange hover:border-primary-orange hover:cursor-custom';
 
   // Return JSX Element to DOM
   return (

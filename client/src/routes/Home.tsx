@@ -1,5 +1,7 @@
-import ContainerWithMaxWidth from '../components/common/ContainerWithMaxWidth';
-import HeroSection from '../components/home/HeroSection';
+import ContainerWithMaxWidth from '@/components/common/ContainerWithMaxWidth';
+import HeroSection from '@/components/home/HeroSection';
+import NewFeatureSection from '@/components/home/NewFeatureSection';
+import SubscribeNewsLetter from '@/components/home/SubscribeNewsletter';
 
 /**
  * Home Component - This renders the landing
@@ -9,11 +11,13 @@ import HeroSection from '../components/home/HeroSection';
  */
 const Home = () => {
   return (
-    <div font-poppins w-full>
-      <ContainerWithMaxWidth>
+    <>
+      <ContainerWithMaxWidth maxWidth="">
         <HeroSection />
+        <NewFeatureSection />
+        <SubscribeNewsLetter />
       </ContainerWithMaxWidth>
-    </div>
+    </>
   );
 };
 

@@ -1,10 +1,13 @@
 import './index.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import Layout from './Layout.tsx';
-import Dashboard from './routes/Dashboard.tsx';
-import Home from './routes/Home.tsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Layout from './Layout.tsx';
+import Home from './routes/Home.tsx';
+import Login from './routes/Login.tsx';
+import Register from './routes/Register.tsx';
+import Dashboard from './routes/Dashboard.tsx';
 
 /**
  * Router Object to add for client side
@@ -18,6 +21,14 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
       },
       {
         path: '/dashboard',

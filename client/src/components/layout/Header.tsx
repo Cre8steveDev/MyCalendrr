@@ -4,75 +4,48 @@
  * @returns
  */
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ContainerWithMaxWidth from '../common/ContainerWithMaxWidth';
+import NavLinks from '../common/NavLinks';
 
 const Header = () => {
   const navigate = useNavigate();
 
   // Return JSX to view
   return (
-    <header className="bg-white shadow-md font-poppins w-full ">
-      <ContainerWithMaxWidth className="flex justify-between items-center">
+    <header className="sticky top-0 w-full bg-white font-poppins shadow-md z-10">
+      <ContainerWithMaxWidth className=" flex items-center justify-between px-4 sm:px-0">
         <div
           role="button"
           onClick={() => navigate('/')}
-          className="text-2xl  text-primary-green font-extrabold font-poppins hover:text-primary-orange transition-all duration-500 ease-in-out"
+          className="font-poppins text-2xl font-extrabold text-primary-green transition-all duration-500 ease-in-out hover:text-primary-orange"
         >
           MyCalendrr
-          <span className="text-primary-orange text-4xl hover:text-primary-green transition-all duration-500 ease-in-out">
+          <span className="text-4xl text-primary-orange transition-all duration-500 ease-in-out hover:text-primary-green">
             .
           </span>
         </div>
-        <nav>
+        <nav className="hidden md:block">
           <ul className="flex space-x-6">
-            <li>
-              <a
-                href="#features"
-                className="text-gray-600 hover:text-primary-green transition-all duration-500 ease-in-out"
-              >
-                Features
-              </a>
-            </li>
-            <li>
-              <a
-                href="#pricing"
-                className="text-gray-600 hover:text-primary-green transition-all duration-500 ease-in-out"
-              >
-                Pricing
-              </a>
-            </li>
-            <li>
-              <a
-                href="#about"
-                className="text-gray-600 hover:text-primary-green transition-all duration-500 ease-in-out"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#contact"
-                className="text-gray-600 hover:text-primary-green transition-all duration-500 ease-in-out"
-              >
-                Contact
-              </a>
-            </li>
+            <NavLinks label="Features" route="#features" />
+            <NavLinks label="Pricing" route="#pricing" />
+            <NavLinks label="About Us" route="#about" />
+            <NavLinks label="Contact" route="/contact" />
           </ul>
         </nav>
         <div>
-          <a
-            href="#login"
-            className="text-primary-green hover:text-primary-orange mr-4 transition-all duration-500 ease-in-out"
+          <Link
+            to="/login"
+            className="mr-4 text-xs text-primary-green transition-all duration-500 ease-in-out hover:text-primary-orange sm:text-base"
           >
             Log In
-          </a>
-          <a
-            href="#signup"
-            className="bg-primary-green text-white px-4 py-2 rounded hover:text-primary-green hover:bg-secondary-green transition-all duration-500 ease-in-out"
+          </Link>
+          <Link
+            to="/register"
+            className="rounded bg-primary-green px-4 py-2 text-xs text-white transition-all duration-500 ease-in-out hover:bg-secondary-green hover:text-primary-green sm:text-base"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </ContainerWithMaxWidth>
     </header>

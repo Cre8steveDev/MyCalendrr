@@ -11,10 +11,10 @@ type QuickLinksProp = {
 };
 const QuickLinks: React.FC<QuickLinksProp> = ({ route, label, className }) => {
   return (
-    <li>
-      <a href={route} className={`text-sm hover:text-blue-300 ${className}`}>
-        {label}
-      </a>
+    <li
+      className={`text-sm md:text-base hover:text-white transition-colors ease-in-out duration-300 ${className}`}
+    >
+      <a href={route}>{label}</a>
     </li>
   );
 };

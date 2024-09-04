@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 # Load the environment variables
 load_dotenv()
@@ -38,6 +39,7 @@ def create_app():
     migrate.init_app(app, db)
     jwt.init_app(app)
     bcrypt.init_app(app)
+    cors = CORS(app, origins=["http://localhost:5173"])
 
     # Bring in the defined blueprints for registration
     from app.routes.main import main

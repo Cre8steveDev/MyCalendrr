@@ -5,6 +5,8 @@ type DivContainerProps = {
   className?: string;
   otherProps?: React.HTMLAttributes<HTMLDivElement>;
   maxWidth?: string;
+  defaultPadding?: string;
+  id?: string;
 };
 
 /**
@@ -15,13 +17,16 @@ type DivContainerProps = {
 const ContainerWithMaxWidth: React.FC<DivContainerProps> = ({
   children,
   className,
-  maxWidth = 'max-w-[1280px]',
+  id,
+  maxWidth = 'md:max-w-[1280px]',
   otherProps = {},
+  defaultPadding = 'sm:px-16 py-4',
 }) => {
   return (
     <div
+      id={id}
       {...otherProps}
-      className={`container mx-auto sm:px-16 py-4   ${className} ${maxWidth}`}
+      className={`mx-auto ${defaultPadding}   ${className} ${maxWidth}`}
     >
       {children}
     </div>

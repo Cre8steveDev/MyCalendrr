@@ -22,6 +22,13 @@ def register():
         JSON: Success message or appropriate error
     """
     data = request.json
+    print(data)
+    return jsonify(
+            {
+                "message": "An Error occured: Unable to create user. Try again later.",
+                "user": None,
+            }
+        )
     existing_user = User.get_by_email(data["email"])
     if existing_user:
         return jsonify({"message": "Email already exists", "success": False}), 400
@@ -55,9 +62,15 @@ def register():
 # Define the Login route
 @auth.route("/login", methods=["POST"])
 def login():
+    print("TADADADA")
     # Get user's details
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+    
+    print("====================")
+    print(email, password)
+    print("====================")
+    
 
     # Check if the user alreay exits
     existing_user = User.get_by_email(email)
