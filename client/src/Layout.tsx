@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import { Toaster } from 'react-hot-toast';
 /**
  * Returns the root component that
  * Renders the outlet  This serves as the
@@ -18,7 +19,11 @@ const Layout = () => {
         <Outlet />
       </main>
 
+      {/* Toaster Component  */}
+      <Toaster position="top-right" reverseOrder={false} />
+
       {/* Footer Element */}
+
       <Footer />
     </>
   );

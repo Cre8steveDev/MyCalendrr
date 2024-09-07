@@ -21,13 +21,19 @@ class User(db.Model):
         title (String)
         bank_name (String)
         bank_account (Number)
-        role (Enum)
+        role (USER or ADMIN)
         account_verified (Boolean)
 
     Methods:
         generate_otp(): Generate One-Time Password
         verify_otp(otp): Verify One-Time Password
         get_by_email(email): Get user by email
+        
+        # Create migration 
+        flask db migrate -m "comment"
+        
+        # Run migrations 
+        flask db upgrade 
     """
 
     __tablename__ = "users"
@@ -35,6 +41,7 @@ class User(db.Model):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     full_name = Column(String(100), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
+    password = Column(String(200), nullable=False)
     phone_number = Column(String(20), nullable=False)
     company_name = Column(String(100))
     profession = Column(String(100))
@@ -42,7 +49,7 @@ class User(db.Model):
     bank_name = Column(String(100))
     bank_account = Column(BigInteger)
 
-    role = Column(Enum("ADMIN", "USER", name="role_type"), default="USER")
+    role = Column(String(15), default="USER")
     account_verified = Column(Boolean, default=False)
 
     OTP = Column(Integer)

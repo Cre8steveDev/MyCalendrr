@@ -8,6 +8,10 @@ import Home from './routes/Home.tsx';
 import Login from './routes/Login.tsx';
 import Register from './routes/Register.tsx';
 import Dashboard from './routes/Dashboard.tsx';
+import Overview from './components/dashboard/Overview.tsx';
+import Appointments from './components/dashboard/Appointments.tsx';
+import Settings from './components/dashboard/Settings.tsx';
+import AdminSupport from './components/dashboard/AdminSupport.tsx';
 
 /**
  * Router Object to add for client side
@@ -33,6 +37,12 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <Dashboard />,
+        children: [
+          { index: true, element: <Overview /> },
+          { path: 'appointments', element: <Appointments /> },
+          { path: 'settings', element: <Settings /> },
+          { path: 'support', element: <AdminSupport /> },
+        ],
       },
     ],
   },

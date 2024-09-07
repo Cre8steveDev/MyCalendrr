@@ -13,7 +13,7 @@ const NavLinks: React.FC<NavType> = ({ label, route }) => {
     <li>
       <a
         href={route}
-        className="text-gray-600 hover:text-primary-green transition-all duration-500 ease-in-out"
+        className="text-gray-600 transition-all duration-500 ease-in-out hover:text-primary-green"
       >
         {label}
       </a>

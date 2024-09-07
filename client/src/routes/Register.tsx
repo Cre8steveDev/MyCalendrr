@@ -25,6 +25,10 @@ import { Switch } from '@/components/ui/switch';
 import getTimeOfDayGreeting from '@/utils/greeting';
 
 import API from '@/lib/API';
+import { toastError, toastSuccess } from '@/hooks/useToasts';
+import { useNavigate } from 'react-router-dom';
+import { useUser } from '@/hooks/useAppStore';
+import { useEffect } from 'react';
 
 // Define Field Values to map the form fields
 
@@ -33,39 +37,63 @@ import API from '@/lib/API';
  * @returns
  */
 const Register = () => {
+  const navigate = useNavigate();
+
   // Create react hook form with Zod validation
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: registerDefault,
   });
+
   const isLoading = form.formState.isSubmitting;
+
+  // Return user from Page if already authenticated
+  const user = useUser();
+
+  useEffect(() => {
+    if (user) {
+      return navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   // Submit Form handler
   async function onSubmit(values: z.infer<typeof registerFormSchema>) {
-    console.log('SUBMISSION CLICKED!');
+    if (!values.accept_terms) {
+      return toastError('You need to accept the terms and conditions.');
+    }
 
     try {
       const res = await API.post('/auth/register', values);
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
+      const data = res.data as { message: string };
+      form.reset(registerDefault);
+      toastSuccess(data?.message);
+
+      navigate('/login');
+
+      // Catch error.
+    } catch (error: any) {
+      if (error?.response) {
+        const message = error.response?.data?.message;
+        return toastError(message);
+      }
+      return toastError('Sorry. A Network or Uknown Error has occurred.');
     }
   }
 
   //   Return JSX To DOM
   return (
     <ContainerWithMaxWidth
-      className="font-poppins flex flex-col place-content-center bg-slate-200 bg-[url(/bgcover.jpg)] bg-cover"
+      className="flex animate-fadein flex-col place-content-center bg-slate-200 bg-[url(/bgcover.jpg)] bg-cover font-poppins"
       maxWidth="w-full"
     >
-      <div className="max-w-[600px] mx-auto pt-8 bg-neutral p-4 rounded-xl mb-4 drop-shadow-lg mt-4">
-        <h2 className="text-center text-xl font-semibold  text-primary-green">
+      <div className="mx-auto mb-4 mt-4 w-[90%] max-w-[500px] animate-fadepage rounded-xl bg-neutral p-4 pt-8 drop-shadow-lg">
+        <h2 className="text-center text-xl font-semibold text-primary-green">
           {getTimeOfDayGreeting()}!
         </h2>
-        <h3 className="text-center text-4xl font-semibold  text-slate-600">
+        <h3 className="text-center text-xl font-semibold text-slate-600 sm:text-2xl">
           Create a New Account and Enjoy Seamless Experience
         </h3>
-        <p className="text-center w-[80%] mx-auto my-4 text-slate-700">
+        <p className="mx-auto my-4 w-[80%] text-center text-xs text-slate-700 sm:text-base">
           Our registration process is quick, easy and secure. We'll never share
           your data with third parties.
         </p>
@@ -74,7 +102,7 @@ const Register = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 font-poppins mx-auto w-[80%] max-w-[500px] bg-white p-8 rounded-xl mb-12 drop-shadow-xl "
+          className="mx-auto mb-12 w-[90%] max-w-[500px] animate-fadepage space-y-3 rounded-xl bg-white p-4 font-poppins drop-shadow-xl sm:p-8"
         >
           {registerFormField.map((form_field, index) => (
             <FormField
@@ -82,7 +110,7 @@ const Register = () => {
               control={form.control}
               name={form_field.name as any}
               render={({ field }) => (
-                <FormItem className="flex flex-col relative">
+                <FormItem className="relative flex flex-col">
                   {/* <FormLabel>{form_field.label}</FormLabel> */}
                   <FormControl>
                     <Input
@@ -90,8 +118,8 @@ const Register = () => {
                       placeholder={form_field.placeholder}
                       autoComplete="off"
                       {...field}
-                      className="text-md sm:text-lg"
-                      style={{ padding: '1.8rem' }}
+                      className="text-[15px] sm:text-lg"
+                      style={{ padding: '1.6rem' }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -105,8 +133,8 @@ const Register = () => {
             control={form.control}
             name="accept_terms"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg  p-4">
-                <div className="space-y-0.5 w-[85%]">
+              <FormItem className="flex flex-row items-center justify-between rounded-lg p-4">
+                <div className="w-[85%] space-y-0.5">
                   <FormLabel className="text-base">
                     Terms & Conditions
                   </FormLabel>
@@ -129,7 +157,7 @@ const Register = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="bg-primary-green w-full disabled:cursor-not-allowed"
+            className="w-full bg-primary-green disabled:cursor-not-allowed"
             style={{ padding: '1.8rem' }}
           >
             {isLoading ? 'Loading...' : 'Register Now'}

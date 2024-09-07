@@ -8,17 +8,17 @@ import QuickLinks from '../common/QuickLinks';
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-radial  from-primary-orange text-black py-8 font-poppins">
-      <div className="sm:grid sm:grid-cols-2  sm:pl-4 md:grid-cols-4 sm:gap-8 max-w-[900px] mx-auto">
+    <footer className="z-10 bg-gradient-radial from-primary-orange py-8 font-poppins text-black">
+      <div className="mx-auto max-w-[900px] sm:grid sm:grid-cols-2 sm:gap-8 sm:pl-4 md:grid-cols-4">
         <div className="cursor-default text-center">
-          <h3 className="text-lg font-semibold mb-1">MyCalendrr</h3>
-          <p className="text-sm md:text-base mb-3">
+          <h3 className="mb-1 text-lg font-semibold">MyCalendrr</h3>
+          <p className="mb-3 text-sm md:text-base">
             Simplifying scheduling and payments for professionals worldwide.
           </p>
         </div>
 
         <div>
-          <h4 className="text-lg font-semibold mb-4 text-center">
+          <h4 className="mb-4 text-center text-lg font-semibold">
             Quick Links
           </h4>
           <ul className="space-y-2 text-center">
@@ -29,7 +29,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-4 text-center">Support</h4>
+          <h4 className="mb-4 text-center text-lg font-semibold">Support</h4>
           <ul className="space-y-2 text-center">
             <QuickLinks route="/#faq" label="FAQ" />
             <QuickLinks route="/#contact" label="Contact Us" />
@@ -38,7 +38,7 @@ const Footer = () => {
           </ul>
         </div>
         <div>
-          <h4 className="text-lg font-semibold mb-4 text-center">Connect</h4>
+          <h4 className="mb-4 text-center text-lg font-semibold">Connect</h4>
           <ul className="space-y-2 text-center">
             <QuickLinks route="https://x.com/cre8stevedev" label="Twitter" />
             <QuickLinks route="https://dev.to/cre8stevedev" label="Dev.to" />
@@ -53,8 +53,8 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="mt-8 pt-8 border-t border-gray-700 text-center text-sm w-full">
-        <p>&copy; 2024 MyCalendrr. Open Source Project by @Cre8steveDev.</p>
+      <div className="mt-8 w-full border-t border-gray-700 px-4 pt-8 text-center text-sm">
+        <p>&copy; 2024 MyCalendrr. Designed & Developed by @Cre8steveDev.</p>
       </div>
     </footer>
   );

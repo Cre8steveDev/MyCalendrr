@@ -14,8 +14,8 @@ const HeroSection = () => {
 
   // Return JSX Component
   return (
-    <SectionContainer className="p-8 sm:p-0 sm:h-screen">
-      <h1 className="text-center font-poppins font-bold text-2xl  md:text-4xl w-[95%] sm:w-[full]">
+    <SectionContainer className="p-8 sm:h-screen sm:p-0">
+      <h1 className="w-[95%] text-center font-poppins text-2xl font-bold sm:w-[full] md:text-4xl">
         <span
           className={`sm:block w-full text-center text-green-500 ${hoverOpacity}`}
         >
@@ -32,7 +32,7 @@ const HeroSection = () => {
           with <span>MyCalendrr.</span>
         </span>
       </h1>
-      <p className="text-center mt-2 text-sm sm:text-xl font-poppins max-w-[600px] mx-auto hover:opacity-85 transition-opacity ease-in-out duration-300">
+      <p className="mx-auto mt-2 max-w-[600px] text-center font-poppins text-sm transition-opacity duration-300 ease-in-out hover:opacity-85 sm:text-xl">
         Create an Appointment Page, Manage your bookings and get paid - all in
         one place!
       </p>
@@ -40,12 +40,12 @@ const HeroSection = () => {
       {/* CTA Buttons */}
       <div
         role="form"
-        className="flex gap-2 sm:gap-5 mx-auto my-6 w-full justify-center"
+        className="mx-auto my-6 flex w-full justify-center gap-2 sm:gap-5"
       >
         <Button
           route="/docs"
           primary={false}
-          className="text-xs sm:text-base sm:w-[150px]"
+          className="text-xs sm:w-[150px] sm:text-base"
         >
           View Our Docs
         </Button>
@@ -53,18 +53,18 @@ const HeroSection = () => {
         <Button
           route="/dashboard"
           primary
-          className="text-xs sm:text-base sm:w-[150px]"
+          className="text-xs sm:w-[150px] sm:text-base"
         >
           Get Started
         </Button>
       </div>
 
       {/* Hero Section Image */}
-      <div className="rounded-md sm:rounded-[2.5rem] object-cover w-full max-w-[900px] mx-auto overflow-hidden drop-shadow-2xl animate-loading cursor-custom">
+      <div className="mx-auto w-full max-w-[900px] animate-loading cursor-custom overflow-hidden rounded-md object-cover drop-shadow-2xl sm:rounded-[2.5rem]">
         <img
           src={HeroImage}
           alt="Image for Hero Section"
-          className="w-full hover:scale-105 transition-transform duration-500 ease-linear cursorim"
+          className="cursorim w-full transition-transform duration-500 ease-linear hover:scale-105"
         />
       </div>
     </SectionContainer>

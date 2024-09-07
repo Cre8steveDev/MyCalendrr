@@ -12,28 +12,27 @@ const registerFormSchema = z.object({
     .string()
     .trim()
     .email({ message: 'Please provide a valid email address.' }),
+  password: z
+    .string()
+    .trim()
+    .min(8, 'Password must be a minimum of 8 characters'),
 
   phone_number: z
     .string()
     .trim()
     .min(10, 'Kindly provide a valid phone number of at least 10 characters.'),
 
-  company_name: z
-    .string()
-    .trim()
-    .min(8, 'I bet your real company name is more than 8 characters. '),
+  // company_name: z
+  //   .string()
+  //   .trim()
+  //   .min(8, 'I bet your real company name is more than 8 characters. '),
 
-  profession: z
-    .string()
-    .trim()
-    .min(6, 'Professions are likely more than 6 characters.'),
+  // profession: z
+  //   .string()
+  //   .trim()
+  //   .min(6, 'Professions are likely more than 6 characters.'),
 
-  title: z.string().trim().min(6, 'Titles are usually more than 6 characters'),
-
-  password: z
-    .string()
-    .trim()
-    .min(8, 'Password must be a minimum of 8 characters'),
+  // title: z.string().trim().min(6, 'Titles are usually more than 6 characters'),
 
   accept_terms: z.boolean().default(false).optional(),
 });
@@ -42,11 +41,11 @@ const registerFormSchema = z.object({
 const registerDefault = {
   full_name: '',
   email: '',
-  phone_number: '',
-  company_name: '',
-  profession: '',
-  title: '',
   password: '',
+  phone_number: '',
+  // company_name: '',
+  // profession: '',
+  // title: '',
   accept_terms: false,
 };
 
@@ -65,20 +64,20 @@ const registerFormField = [
   },
   {
     name: 'phone_number',
-    placeholder: 'Enter a registered phone number',
+    placeholder: 'Enter a valid phone number',
   },
-  {
-    name: 'company_name',
-    placeholder: 'Your Company Name',
-  },
-  {
-    name: 'profession',
-    placeholder: 'In what industry are you working?',
-  },
-  {
-    name: 'title',
-    placeholder: 'Enter your professional title',
-  },
+  // {
+  //   name: 'company_name',
+  //   placeholder: 'Your Company Name',
+  // },
+  // {
+  //   name: 'profession',
+  //   placeholder: 'In what industry are you working?',
+  // },
+  // {
+  //   name: 'title',
+  //   placeholder: 'Enter your professional title',
+  // },
 ];
 
 // Define Zod validation schema for Login Form

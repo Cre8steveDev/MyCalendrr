@@ -61,14 +61,35 @@ export default {
       },
 
       // Shadcn Configurations Above ends
-
       animation: {
+        fadein: 'fadein .5s ease-in-out forwards',
+        fadepage: 'fadepage .5s ease-in-out forwards',
         loading: 'loading .5s ease-in-out forwards',
         scaling: 'scaling 3s ease-in-out infinite',
         animateBtn: 'animateBtn 3s ease-in-out infinite',
         bounce: 'bounce 0.5s linear',
       },
       keyframes: {
+        fadepage: {
+          '0%': {
+            opacity: 0,
+            transform: 'translateY(300px)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateX(0px)',
+          },
+        },
+
+        fadein: {
+          '0%': {
+            opacity: 0.5,
+          },
+          '100%': {
+            opacity: 1,
+          },
+        },
+
         loading: {
           '0%': {
             width: '0%',

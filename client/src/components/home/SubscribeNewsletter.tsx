@@ -32,16 +32,16 @@ const SubscribeNewsLetter = () => {
   return (
     <ContainerWithMaxWidth
       maxWidth="max-w-[900px]"
-      className="mb-10 w-full md:rounded-3xl bg-gradient-radial to-primary-green from-primary-orange py-10 font-poppins drop-shadow-2xl relative overflow-hidden"
+      className="relative mb-10 w-full overflow-hidden bg-gradient-radial from-primary-orange to-primary-green py-10 font-poppins drop-shadow-2xl md:rounded-3xl"
     >
       <SectionContainer>
-        <h1 className="mt-5 text-center text-2xl sm:text-4xl font-bold text-white">
+        <h1 className="mt-5 text-center text-2xl font-bold text-white sm:text-4xl">
           Stay Ahead in Scheduling Innovation
         </h1>
 
         {/* Render the Features */}
         <form
-          className="mx-auto flex w-full justify-center py-4 px-8 z-10"
+          className="z-10 mx-auto flex w-full justify-center px-8 py-4"
           onSubmit={handleSubscribeSubmit}
         >
           <input
@@ -51,22 +51,22 @@ const SubscribeNewsLetter = () => {
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
             placeholder="Kindly enter your email here..."
-            className="w-full max-w-[600px] p-2 sm:p-4 text-sm sm:text-lg md:text-xl outline-none text-center"
+            className="w-full max-w-[600px] p-2 text-center text-sm outline-none sm:p-4 sm:text-lg md:text-xl"
           />
-          <button className="bg-primary-green px-4 py-2 text-white sm:w-[120px] text-sm sm:text-base hover:bg-primary-orange transition-colors hover:text-black duration-500">
+          <button className="bg-primary-green px-4 py-2 text-sm text-white transition-colors duration-500 hover:bg-primary-orange hover:text-black sm:w-[120px] sm:text-base">
             Subscribe
           </button>
         </form>
 
-        <p className="text-center text-xs px-4 sm:px-0 sm:text-sm max-w-[600px] mx-auto mt-2">
+        <p className="mx-auto mt-2 max-w-[600px] px-4 text-center text-xs sm:px-0 sm:text-sm">
           Subscribe to our newsletter for expert tips, industry insights, and
           exclusive updates. Boost your scheduling game and never miss a beat in
           optimizing your business.
         </p>
 
         {/* Overlay Circle */}
-        <div className="absolute mx-auto  h-screen w-[50%] bg-white rounded-[100%] opacity-20 animate-ping delay-300 duration-1000">
-          <div className="absolute mx-auto left-[50%] translate-x-[50%] h-screen w-[100%] bg-white rounded-[100%] opacity-50 animate-ping"></div>
+        <div className="absolute mx-auto h-screen w-[50%] animate-ping rounded-[100%] bg-white opacity-20 delay-300 duration-1000">
+          <div className="absolute left-[50%] mx-auto h-screen w-[100%] translate-x-[50%] animate-ping rounded-[100%] bg-white opacity-50"></div>
         </div>
       </SectionContainer>
     </ContainerWithMaxWidth>

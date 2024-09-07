@@ -27,14 +27,14 @@ const NewFeatureSection = () => {
     <ContainerWithMaxWidth
       id="features"
       maxWidth=""
-      className="w-full bg-slate-50 rounded-3xl py-10 mb-10 px-5"
+      className="mb-10 w-full rounded-3xl bg-slate-50 px-5 py-10"
     >
       <SectionContainer>
-        <h1 className="text-center font-poppins font-bold px-4 text-2xl sm:text-4xl text-slate-400 mt-5">
+        <h1 className="mt-5 px-4 text-center font-poppins text-2xl font-bold text-slate-400 sm:text-4xl">
           Exciting Features, Just For You
         </h1>
 
-        <p className="text-center text-slate-600 sm:text-base text-sm w-[80%] mx-auto">
+        <p className="mx-auto w-[80%] text-center text-sm text-slate-600 sm:text-base">
           Innovative offersing to boost your business with MyCalendrr.
         </p>
 
@@ -49,9 +49,9 @@ const NewFeatureSection = () => {
             }) as LoosePluginType,
           ]}
         >
-          <CarouselPrevious className="bg-primary-green text-white md:ml-5" />
-          <CarouselNext className="bg-primary-green text-white md:mr-5" />
-          <CarouselContent className="-ml-4 ">
+          <CarouselPrevious className="hidden bg-primary-green text-white sm:flex md:ml-5" />
+          <CarouselNext className="hidden bg-primary-green text-white sm:flex md:mr-5 text-center" />
+          <CarouselContent className="-ml-4">
             {featuredData.map((feature, index) => (
               <CarouselItem className="pl-4" key={index}>
                 <FeatureCard
