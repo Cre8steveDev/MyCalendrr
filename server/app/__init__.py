@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS
 
 # Load the environment variables
 load_dotenv("../")
@@ -15,6 +14,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
 bcrypt = Bcrypt()
+
 
 def create_app():
     app = Flask(__name__)
@@ -37,10 +37,6 @@ def create_app():
     jwt.init_app(app)
     bcrypt.init_app(app)
 
-    # Configure CORS
-    CORS(app, supports_credentials=True, allow_headers=["*"])
-    #, resources={r"/api/v1/*": {"origins": "http://localhost:5173", "supports_credentials": True,}}
-
     # Bring in the defined blueprints for registration
     from app.routes.main import main
     from app.routes.auth import auth
@@ -53,8 +49,8 @@ def create_app():
     app.register_blueprint(main, url_prefix="/api/v1/")
     app.register_blueprint(auth, url_prefix="/api/v1/auth")
     app.register_blueprint(appointment, url_prefix="/api/v1/appointment")
-    
-    # Server health check 
+
+    # Server health check
     @app.route("/health", methods=["GET"])
     def health():
         return jsonify({"success": True}), 200

@@ -32,20 +32,21 @@ class Appointment(db.Model):
     __tablename__ = "appointments"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+
     user_id = Column(
         UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
     title = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
     amount_payable = Column(Numeric(10, 2), nullable=False)  # 2d.p
-    
+
     # Monday...... Sunday
     working_days = Column(MutableList.as_mutable(ARRAY(String(100))), nullable=False)
-    
+
     booked_dates = Column(MutableList.as_mutable(ARRAY(Date)))
 
     # Relationship to User
-    user = relationship("User", back_populates="appointment")
+    user = relationship("User", back_populates="appointments")
 
     def __repr__(self):
         return f"<Appointment {self.title}>"
@@ -63,3 +64,19 @@ class Appointment(db.Model):
             self.available_dates.append(date_to_cancel)
             return True
         return False
+
+    # Instance method to get the dictionary representation
+    def to_dict(self):
+        return {
+            "id": str(self.id),  # Convert UUID to string
+            "user_id": str(self.user_id),  # Convert UUID to string
+            "title": self.title,
+            "description": self.description,
+            "amount_payable": float(self.amount_payable),  # Convert Decimal to float
+            "working_days": self.working_days,
+            "booked_dates": (
+                [date.isoformat() for date in self.booked_dates]
+                if self.booked_dates
+                else []
+            ),
+        }

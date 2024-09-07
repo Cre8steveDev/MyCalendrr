@@ -26,7 +26,7 @@ const Dashboard = () => {
   // Return Route layout and children element
   return (
     <ContainerWithMaxWidth
-      className={`flex sm:flex-row flex-col gap-4 min-h-[calc(100dvh-100px)] pt-10 `}
+      className={`flex sm:flex-row flex-col gap-4 min-h-[calc(100dvh-100px)] `}
     >
       {/* Dashboard navigation  */}
       <NavigationBar setShowCreateModal={() => setShowCreateModal(true)} />

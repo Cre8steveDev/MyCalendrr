@@ -28,9 +28,9 @@ appointment = Blueprint("appointment", __name__)
 def create_public_appointment():
 
     user = get_validated_user(get_jwt_identity())
-    
+
     print("THE REQUESTING USER: ", user)
-    
+
     if not user:
         return (
             jsonify(
@@ -64,7 +64,10 @@ def create_public_appointment():
 
         return (
             jsonify(
-                {"success": False, "message": f"Error creating appointment. Please try again later."}
+                {
+                    "success": False,
+                    "message": f"Error creating appointment. Please try again later.",
+                }
             ),
             400,
         )
@@ -106,6 +109,99 @@ def update_public_appointment(appointment_id: str):
 
         db.session.commit()
 
+        return (
+            jsonify(
+                {
+                    "success": True,
+                    "message": "Appointment updated successfully.",
+                    "appointment_id": str(appointment.id),
+                }
+            ),
+            200,
+        )
+
+    except Exception as e:
+        db.session.rollback()
+        return (
+            jsonify({"success": False, "message": f"Error updating appointment."}),
+            400,
+        )
+
+
+@appointment.route("/get-all", methods=["GET"])
+@jwt_required()
+def get_all_appointments():
+
+    user = get_validated_user(get_jwt_identity())
+
+    if not user:
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "message": "Unable to validate user. Please log in again.",
+                }
+            ),
+            403,
+        )
+
+    try:
+        # new_appointment = Appointment(**data)
+        all_appointments = Appointment.query.filter_by(user=user.id)
+
+        print(f"ALL APPOINTMENTS CREATED BY USER: {all_appointments}")
+
+        return (
+            jsonify(
+                {
+                    "success": True,
+                    "message": "All appointments retreived successfully.",
+                    "all_appointments": all_appointments,
+                }
+            ),
+            200,
+        )
+    except Exception as e:
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "message": f"Error retrieving appointments. Please try again later.",
+                }
+            ),
+            400,
+        )
+
+
+@appointment.route("/get/<uuid:appointment_id>", methods=["GET"])
+@jwt_required()
+def get_appointment(appointment_id: str):
+
+    user = get_validated_user(get_jwt_identity())
+    if not user:
+        return (
+            jsonify(
+                {
+                    "success": False,
+                    "message": "Unable to validate user. Please log in again.",
+                }
+            ),
+            403,
+        )
+    try:
+        appointment = Appointment.query.get(appointment_id)
+        print(f"THE FOUND SPECIFIC APPOINTMENT: {appointment}")
+
+        if not appointment.user_id != user.id:
+            return (
+                jsonify(
+                    {
+                        "success": False,
+                        "message": "Oops! Appointment not found or you don't have permission to update it.",
+                    }
+                ),
+                404,
+            )
         return (
             jsonify(
                 {

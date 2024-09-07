@@ -24,9 +24,9 @@ const NavigationBar: React.FC<BarProp> = ({ setShowCreateModal }) => {
 
   // Return JSX Elements
   return (
-    <div className="w-[200px] font-poppins flex flex-col gap-3 relative">
+    <div className="w-[200px] min-w-[200px] font-poppins flex flex-col gap-3 relative pt-4">
       <Button
-        className="flex items-center justify-center gap-2 w-full mb-3"
+        className="flex items-center justify-center gap-2 w-full mb-3 text-orange-600"
         onClick={setShowCreateModal}
       >
         New Appointment

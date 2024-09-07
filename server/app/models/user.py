@@ -1,10 +1,11 @@
-from app import db
-from sqlalchemy.dialects.postgresql import UUID, ARRAY, JSONB
-from sqlalchemy import Enum, Boolean, Integer, String, Column, BigInteger
-from sqlalchemy.orm import relationship
 import uuid
 import random
+from app import db
+from sqlalchemy.dialects.postgresql import UUID, ARRAY, JSONB
+from sqlalchemy import Boolean, Integer, Numeric, String, Column, BigInteger, Float
 from datetime import datetime, timedelta
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.mutable import MutableList
 
 
 class User(db.Model):
@@ -24,16 +25,18 @@ class User(db.Model):
         role (USER or ADMIN)
         account_verified (Boolean)
 
+        bookings a json of booking type
+
     Methods:
         generate_otp(): Generate One-Time Password
         verify_otp(otp): Verify One-Time Password
         get_by_email(email): Get user by email
-        
-        # Create migration 
+
+        # Create migration
         flask db migrate -m "comment"
-        
-        # Run migrations 
-        flask db upgrade 
+
+        # Run migrations
+        flask db upgrade
     """
 
     __tablename__ = "users"
@@ -43,9 +46,12 @@ class User(db.Model):
     email = Column(String(120), unique=True, nullable=False)
     password = Column(String(200), nullable=False)
     phone_number = Column(String(20), nullable=False)
+
     company_name = Column(String(100))
     profession = Column(String(100))
     title = Column(String(100))
+
+    amount_earned = Column(Float, default=0.0)
     bank_name = Column(String(100))
     bank_account = Column(BigInteger)
 
@@ -55,16 +61,10 @@ class User(db.Model):
     OTP = Column(Integer)
     OTP_expiry = Column(db.DateTime)
 
-    # New column for storing dictionary-like data
-    # JSONB is specific for Postgres.
-    additional_info = Column(JSONB)
+    bookings = Column(MutableList.as_mutable(ARRAY(JSONB)), default=[])
 
     # Relationship to Appointment
-    # By setting uselist=False, you're telling
-    # SQLAlchemy to expect a one-to-one relationship
-    # between User and Appointment, rather than
-    # a one-to-many relationship.
-    appointment = relationship("Appointment", back_populates="user", uselist=False)
+    appointments = relationship("Appointment", back_populates="user", uselist=True)
 
     def __repr__(self):
         return f"<User {self.full_name}>"
@@ -87,3 +87,21 @@ class User(db.Model):
     @classmethod
     def get_by_email(cls, email):
         return cls.query.filter_by(email=email).first()
+
+    # Get the dictionary representation
+    def to_dict(self):
+        user_dict = {
+            "email": self.email,
+            "full_name": self.full_name,
+            "phone_number": self.phone_number,
+            "company_name": self.company_name,
+            "profession": self.profession,
+            "title": self.title,
+            "amount_earned": self.amount_earned,
+            "bank_name": self.bank_name,
+            "bank_account": self.bank_account,
+            "bookings": self.bookings,
+            "account_verified": self.account_verified,
+        }
+
+        return user_dict
