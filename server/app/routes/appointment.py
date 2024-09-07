@@ -28,6 +28,9 @@ appointment = Blueprint("appointment", __name__)
 def create_public_appointment():
 
     user = get_validated_user(get_jwt_identity())
+    
+    print("THE REQUESTING USER: ", user)
+    
     if not user:
         return (
             jsonify(
@@ -61,7 +64,7 @@ def create_public_appointment():
 
         return (
             jsonify(
-                {"success": False, "message": f"Error creating appointment: {str(e)}"}
+                {"success": False, "message": f"Error creating appointment. Please try again later."}
             ),
             400,
         )

@@ -17,5 +17,5 @@ def parse_appointment_data(
         "title": request_data.get("title"),
         "description": request_data.get("description"),
         "amount_payable": request_data.get("amount_payable"),
-        "available_dates": request_data.get("available_dates"),
+        "working_days": request_data.get("working_days"),
     }

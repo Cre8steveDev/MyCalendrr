@@ -108,6 +108,39 @@ const loginFormField = [
   },
 ];
 
+// Creating or editing an  appointment
+const appointmentSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .min(10, 'Appointment title must be at least 10 characters.'),
+
+  description: z
+    .string()
+    .trim()
+    .min(20, 'Provide a more descriptive text about your appointment.'),
+
+  amount_payable: z.string().min(3, 'Please enter a valid amount.'),
+});
+
+// Defaults
+const appointmentDefault = {
+  title: '',
+  description: '',
+  amount_payable: '',
+};
+
+const appointmentFormField = [
+  {
+    name: 'title',
+    placeholder: 'Title of the Appointment',
+  },
+  {
+    name: 'amount_payable',
+    placeholder: 'Amount Clients will pay to book.',
+  },
+];
+
 // Export Schemas
 export {
   registerFormSchema,
@@ -116,4 +149,7 @@ export {
   registerFormField,
   loginDefault,
   loginFormField,
+  appointmentFormField,
+  appointmentDefault,
+  appointmentSchema,
 };

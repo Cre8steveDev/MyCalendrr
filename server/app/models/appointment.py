@@ -21,12 +21,10 @@ class Appointment(db.Model):
         title (String)
         description (Text)
         amount_payable (Numeric)
-        available_dates (MutableList[Date])
+        working_days (MutableList[String])
         booked_dates (MutableList[Date])
 
     Methods:
-        add_available_date(date): Add available date
-        remove_available_date(date): Remove available date
         book_date(date): Book a date
         cancel_booking(date): Cancel a booking
     """
@@ -40,7 +38,10 @@ class Appointment(db.Model):
     title = Column(String(100), nullable=False)
     description = Column(Text, nullable=False)
     amount_payable = Column(Numeric(10, 2), nullable=False)  # 2d.p
-    available_dates = Column(MutableList.as_mutable(ARRAY(Date)))
+    
+    # Monday...... Sunday
+    working_days = Column(MutableList.as_mutable(ARRAY(String(100))), nullable=False)
+    
     booked_dates = Column(MutableList.as_mutable(ARRAY(Date)))
 
     # Relationship to User
@@ -48,18 +49,6 @@ class Appointment(db.Model):
 
     def __repr__(self):
         return f"<Appointment {self.title}>"
-
-    def add_available_date(self, new_date):
-        if isinstance(new_date, date) and new_date not in self.available_dates:
-            self.available_dates.append(new_date)
-            return True
-        return False
-
-    def remove_available_date(self, date_to_remove):
-        if date_to_remove in self.available_dates:
-            self.available_dates.remove(date_to_remove)
-            return True
-        return False
 
     def book_date(self, date_to_book):
         if date_to_book in self.available_dates:

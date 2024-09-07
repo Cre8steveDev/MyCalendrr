@@ -1,4 +1,5 @@
 import ContainerWithMaxWidth from '@/components/common/ContainerWithMaxWidth';
+import CreateandEditAppointment from '@/components/dashboard/CreateandEditAppointment';
 import NavigationBar from '@/components/dashboard/NavigationBar';
 import { useUser } from '@/hooks/useAppStore';
 import { useEffect, useState } from 'react';
@@ -24,7 +25,9 @@ const Dashboard = () => {
 
   // Return Route layout and children element
   return (
-    <ContainerWithMaxWidth className="flex sm:flex-row flex-col gap-4 min-h-[calc(100dvh-100px)] pt-10">
+    <ContainerWithMaxWidth
+      className={`flex sm:flex-row flex-col gap-4 min-h-[calc(100dvh-100px)] pt-10 `}
+    >
       {/* Dashboard navigation  */}
       <NavigationBar setShowCreateModal={() => setShowCreateModal(true)} />
 
@@ -32,7 +35,9 @@ const Dashboard = () => {
       <Outlet />
 
       {/* handle showing Create Appointment Modal  */}
-      {showCreateModal && <p>Hello Create Modal</p>}
+      {showCreateModal && (
+        <CreateandEditAppointment setModalVisibility={setShowCreateModal} />
+      )}
     </ContainerWithMaxWidth>
   );
 };
