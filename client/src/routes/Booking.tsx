@@ -123,6 +123,7 @@ const Booking = () => {
           appointment_id={appointment.id}
           appointment_title={appointment.title}
           setModalVisibility={setShowBooking}
+          amount_paid={appointment.amount_payable}
         />
       )}
     </ContainerWithMaxWidth>

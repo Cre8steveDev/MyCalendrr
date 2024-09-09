@@ -42,3 +42,10 @@ export type TBooking = {
   booked_date: Date;
   timestamp: Date;
 };
+
+type TOverviewData = {
+  appointments: number;
+  amount_earned: number;
+  bookings: TBooking[];
+  user: AppointmentBooking['user'];
+};

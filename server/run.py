@@ -8,10 +8,11 @@ app = create_app()
 # Configure CORS
 CORS(
     app,
-    resources={r"/api/*": {"origins": "http://localhost:5173"}},
+    resources={r"/api/*": {
+        "origins": "http://localhost:5173"
+    }},
     supports_credentials=True,
 )
-
 
 if __name__ == "__main__":
     app.run(debug=True)

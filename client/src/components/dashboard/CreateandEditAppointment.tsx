@@ -113,9 +113,9 @@ const CreateandEditAppointment: React.FC<CompProp> = ({
 
   // Return JSX for the View
   return (
-    <div className="w-screen min-h-screen bg-black backdrop-blur-lg bg-opacity-65 fixed top-0 left-0 flex justify-center items-center animate-fadepage sm:px-6 px-2">
+    <div className="w-screen h-full min-h-screen bg-black backdrop-blur-lg bg-opacity-65 fixed top-0 left-0 flex sm:justify-center sm:items-center animate-fadepage sm:px-6 px-2">
       {/* Section container for the form creation  */}
-      <section className="flex flex-col md:flex-row rounded-xl bg-white p-4 font-poppins gap-3">
+      <section className="flex flex-col md:flex-row rounded-xl bg-white p-4 font-poppins gap-3 h-full overflow-y-scroll">
         {/* Image Container */}
         <div className="max-w-[500px] object-cover bg-red-500">
           <img
@@ -169,7 +169,7 @@ const CreateandEditAppointment: React.FC<CompProp> = ({
                     <FormControl>
                       <Textarea
                         placeholder="Provide a descriptive text for your users to see. This will be on the scheduling page."
-                        className="resize-none h-[250px] text-[15px] sm:text-[16px]"
+                        className="resize-none h-[190px] sm:h-[250px] text-[15px] sm:text-[16px]"
                         style={{ padding: '1.4rem' }}
                         {...field}
                       />

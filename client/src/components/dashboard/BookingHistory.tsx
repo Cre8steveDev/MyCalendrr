@@ -1,34 +1,25 @@
-import { useToken } from '@/hooks/useAppStore';
-import { useEffect, useState } from 'react';
-import LoadingComponent from '../common/LoadingComponent';
+import React from 'react';
+import { TBooking } from '@/types';
+import { BookingDataTable } from './BookingDataTable';
+import { columns } from './BookingColumn';
+
+type THistory = {
+  bookings: TBooking[];
+};
 
 /**
  * Booking History Component
  * on the Dashboard
  * @returns
  */
-const BookingHistory = () => {
-  const [loading, setLoading] = useState(true);
-  const token = useToken();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
-
-    return () => clearTimeout(timer);
-  }, [token]);
-
-  // Loading Component
-  if (loading) {
-    return (
-      <LoadingComponent
-        message="Loading Data..."
-        className="bg-white rounded-md"
-      />
-    );
-  }
-
+const BookingHistory: React.FC<THistory> = ({ bookings }) => {
   //   Return JSX AFter Loading Data
-  return <div>BookingHistory</div>;
+  return (
+    <div className="w-full">
+      <BookingDataTable columns={columns} data={bookings} />
+    </div>
+  );
 };
 
 export default BookingHistory;

@@ -20,11 +20,9 @@ def create_app():
     app = Flask(__name__)
 
     # Conditionally pick the Database URI based on the environment
-    URI = (
-        "MAIN_BRANCH_NEON_DATABASE_URI"
-        if os.environ.get("ENVIRONMENT", None) == "production"
-        else "DEV_BRANCH_NEON_DATABASE_URI"
-    )
+    URI = ("MAIN_BRANCH_NEON_DATABASE_URI" if os.environ.get(
+        "ENVIRONMENT", None) == "production" else
+           "DEV_BRANCH_NEON_DATABASE_URI")
 
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(URI)
     app.config["JWT_SECRET_KEY"] = os.environ.get("SECRET_KEY")

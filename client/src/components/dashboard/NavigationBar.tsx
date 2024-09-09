@@ -24,30 +24,33 @@ const NavigationBar: React.FC<BarProp> = ({ setShowCreateModal }) => {
 
   // Return JSX Elements
   return (
-    <div className="w-[200px] min-w-[200px] font-poppins flex flex-col gap-3 relative pt-4">
-      <Button
-        className="flex items-center justify-center gap-2 w-full mb-3 text-orange-600"
-        onClick={setShowCreateModal}
-      >
-        New Appointment
-      </Button>
-
-      {actions.map((link, index) => (
-        <Link
-          to={link.route}
-          key={index}
-          className={`${
-            pathname === link.route
-              ? 'bg-green-200 text-slate-800 font-bold'
-              : 'text-slate-700 hover:bg-slate-50'
-          } px-3 py-2  rounded-md  transition-all ease-linear duration-500`}
+    <div className="hidden w-full sm:w-[300px] min-w-[200px] font-poppins sm:flex flex-col p-4 bg-white rounded-lg shadow-lg shadow-slate-100 justify-between">
+      {/*  */}
+      <div className="w-full flex-col gap-3 flex">
+        <Button
+          primary
+          className="flex items-center justify-center gap-2 w-full mb-3 text-orange-600"
+          onClick={setShowCreateModal}
         >
-          <p>{link.label}</p>
-        </Link>
-      ))}
+          New Appointment
+        </Button>
 
+        {actions.map((link, index) => (
+          <Link to={link.route} key={index}>
+            <p
+              className={`${
+                pathname === link.route
+                  ? 'bg-green-200 text-slate-800 font-bold'
+                  : 'text-slate-700 hover:bg-slate-50'
+              } px-3 py-2  rounded-md  transition-all ease-linear duration-500`}
+            >
+              {link.label}
+            </p>
+          </Link>
+        ))}
+      </div>
       {/* Show Version and Status */}
-      <article className="absolute bottom-0 flex flex-col">
+      <article className=" flex flex-col mt-5">
         <div
           className={`flex items-center gap-2 font-bold  text-xs ${
             isOnline ? 'text-green-600' : 'text-red-600'

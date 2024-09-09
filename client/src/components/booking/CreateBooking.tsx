@@ -30,6 +30,7 @@ type CompProp = {
   selectedDate: Date;
   appointment_id: string;
   appointment_title: string;
+  amount_paid: number;
 };
 
 /**
@@ -42,6 +43,7 @@ const CreateBookingComp: React.FC<CompProp> = ({
   selectedDate,
   appointment_id,
   appointment_title,
+  amount_paid,
 }) => {
   // Create react hook form with Zod validation
   const form = useForm<z.infer<typeof bookingSchema>>({
@@ -70,6 +72,7 @@ const CreateBookingComp: React.FC<CompProp> = ({
         transaction_reference: transactionRef,
         booked_date: selectedDate,
         timestamp: new Date(),
+        amount_paid: +amount_paid,
       };
 
       const res = await API.post('/appointment/create-booking', bookingData);
@@ -137,25 +140,29 @@ const CreateBookingComp: React.FC<CompProp> = ({
               ))}
 
               {/* Button Payment */}
-              <Button
-                type="button"
-                onClick={handlePayment}
-                disabled={isLoading}
-                className="w-full bg-primary-orange disabled:cursor-not-allowed"
-                style={{ padding: '1.4rem' }}
-              >
-                {isLoading ? 'Loading...' : 'Pay for Booking'}
-              </Button>
+              {!transactionRef && (
+                <Button
+                  type="button"
+                  onClick={handlePayment}
+                  disabled={isLoading}
+                  className="w-full bg-primary-orange disabled:cursor-not-allowed"
+                  style={{ padding: '1.4rem' }}
+                >
+                  {isLoading ? 'Loading...' : 'Pay for Booking'}
+                </Button>
+              )}
 
               {/* Button Submission */}
-              <Button
-                type="submit"
-                disabled={isLoading || !transactionRef}
-                className="w-full bg-primary-green disabled:cursor-not-allowed"
-                style={{ padding: '1.4rem' }}
-              >
-                {isLoading ? 'Loading...' : 'Create Appointment'}
-              </Button>
+              {transactionRef && (
+                <Button
+                  type="submit"
+                  disabled={isLoading || !transactionRef}
+                  className="w-full bg-primary-green disabled:cursor-not-allowed"
+                  style={{ padding: '1.4rem' }}
+                >
+                  {isLoading ? 'Loading...' : 'Create Appointment'}
+                </Button>
+              )}
 
               {/* Button Submission */}
               <Button

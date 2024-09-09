@@ -4,7 +4,7 @@ from app.models.user import User
 from app.models.appointment import Appointment
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from app.utils.utilities import get_validated_user, parse_appointment_data
+from app.utils.utilities import get_validated_user, parse_appointment_data, get_top_5_recent_bookings
 
 main = Blueprint("main", __name__)
 
@@ -22,34 +22,29 @@ def get_dashboard_data():
 
     try:
         user = get_validated_user(get_jwt_identity())
-
-        # appointments = [appointment.to_dict() for appointment in user.appointments]
-        # print("APPOINTMENTS: ", appointments)
+        top_5_bookings = get_top_5_recent_bookings(user)
 
         if not user:
             return (
-                jsonify(
-                    {
-                        "success": False,
-                        "message": "Unable to validate user. Please log in again.",
-                        "data": None,
-                    }
-                ),
+                jsonify({
+                    "success": False,
+                    "message": "Unable to validate user. Please log in again.",
+                    "data": None,
+                }),
                 403,
             )
 
         return (
-            jsonify(
-                {
-                    "success": True,
-                    "message": "Data Retrieved for User",
-                    "data": {
-                        "appointments": len(user.appointments),
-                        "amount_earned": user.amount_earned,
-                        "bookings": user.bookings,
-                    },
-                }
-            ),
+            jsonify({
+                "success": True,
+                "message": "Data Retrieved for User",
+                "data": {
+                    "appointments": len(user.appointments),
+                    "amount_earned": user.amount_earned,
+                    "bookings": top_5_bookings,
+                    "user": user.to_appointment_dict()
+                },
+            }),
             200,
         )
 
@@ -57,12 +52,10 @@ def get_dashboard_data():
         print(e)
 
         return (
-            jsonify(
-                {
-                    "success": False,
-                    "message": f"Error retrieving Dashboard Data.",
-                    "data": None,
-                }
-            ),
+            jsonify({
+                "success": False,
+                "message": f"Error retrieving Dashboard Data.",
+                "data": None,
+            }),
             400,
         )

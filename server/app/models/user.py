@@ -25,7 +25,7 @@ class User(db.Model):
         role (USER or ADMIN)
         account_verified (Boolean)
 
-        bookings a json of booking type 
+        bookings a json of booking type
 
     Methods:
         generate_otp(): Generate One-Time Password
@@ -46,7 +46,7 @@ class User(db.Model):
     email = Column(String(120), unique=True, nullable=False)
     password = Column(String(200), nullable=False)
     phone_number = Column(String(20), nullable=False)
-    
+
     photo_url = Column(String(100), default="/avatar.png")
 
     company_name = Column(String(100))
@@ -66,10 +66,19 @@ class User(db.Model):
     bookings = Column(MutableList.as_mutable(ARRAY(JSONB)), default=[])
 
     # Relationship to Appointment
-    appointments = relationship("Appointment", back_populates="user", uselist=True)
+    appointments = relationship("Appointment",
+                                back_populates="user",
+                                uselist=True)
 
     def __repr__(self):
         return f"<User {self.full_name}>"
+
+    def topup_account(self, amount=0):
+        if amount <= 0:
+            return False
+        self.amount_earned += amount
+        db.session.commit()
+        return True
 
     def generate_otp(self):
         self.OTP = random.randint(100000, 909090)
@@ -92,7 +101,7 @@ class User(db.Model):
 
     # Get the dictionary representation
     def to_dict(self):
-        
+
         user_dict = {
             "email": self.email,
             "full_name": self.full_name,
@@ -105,14 +114,15 @@ class User(db.Model):
             "bank_account": self.bank_account,
             "bookings": self.bookings,
             "account_verified": self.account_verified,
-            "photo_url": self.photo_url
+            "photo_url": self.photo_url,
         }
 
         return user_dict
-    
+
         # Get the dictionary representation
+
     def to_appointment_dict(self):
-        
+
         user_dict = {
             "email": self.email,
             "full_name": self.full_name,
@@ -120,8 +130,7 @@ class User(db.Model):
             "company_name": self.company_name,
             "profession": self.profession,
             "title": self.title,
-            "photo_url": self.photo_url
+            "photo_url": self.photo_url,
         }
 
         return user_dict
-

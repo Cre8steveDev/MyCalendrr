@@ -30,7 +30,7 @@ const Appointments = () => {
   // Return JSX
   return (
     <section
-      className="font-poppins p-4 w-full h-full overflow-x-scroll"
+      className="font-poppins p-4 w-full h-full overflow-x-scroll animate-fadein"
       id="hide_scroll_bar"
     >
       {/* Header */}

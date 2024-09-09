@@ -18,9 +18,15 @@ export type Appointment = {
   title: string;
   amount_payable: number;
   id: string;
+  bookings: number;
 };
 
 export const columns: ColumnDef<Appointment>[] = [
+  {
+    accessorKey: 'index',
+    header: 'S/N',
+    cell: ({ row }) => row.index + 1,
+  },
   {
     accessorKey: 'title',
     header: ({ column }) => {
@@ -61,10 +67,11 @@ export const columns: ColumnDef<Appointment>[] = [
     },
   },
 
-  // {
-  //   accessorKey: 'id',
-  //   header: 'ID',
-  // },
+  {
+    accessorKey: 'bookings',
+    header: 'Bookings',
+  },
+
   {
     id: 'actions',
     header: 'Actions',

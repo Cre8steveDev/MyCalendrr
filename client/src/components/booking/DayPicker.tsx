@@ -39,6 +39,11 @@ const DayPickerComp: React.FC<TDayPicker> = ({
           color: 'white',
           backgroundColor: 'orange',
         },
+        today: {
+          fontWeight: 'bold',
+          color: 'white',
+          backgroundColor: 'green',
+        },
       }}
       onDayClick={(_date, modifiers) => {
         if (modifiers.booked) {

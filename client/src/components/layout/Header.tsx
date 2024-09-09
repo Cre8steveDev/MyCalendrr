@@ -58,12 +58,14 @@ const Header = () => {
 
         {user && (
           <div className="flex gap-2">
-            <Link
-              to="/dashboard"
-              className="rounded bg-primary-green px-2 py-1 text-xs text-white transition-all duration-500 ease-in-out hover:bg-secondary-green hover:text-primary-green sm:px-4 sm:py-2 sm:text-base"
-            >
-              Dashboard
-            </Link>
+            {!pathname.includes('/dashboard') && (
+              <Link
+                to="/dashboard"
+                className="rounded bg-primary-green px-2 py-1 text-xs text-white transition-all duration-500 ease-in-out hover:bg-secondary-green hover:text-primary-green sm:px-4 sm:py-2 sm:text-base"
+              >
+                Dashboard
+              </Link>
+            )}
 
             {/* Signout Button  */}
             <button
