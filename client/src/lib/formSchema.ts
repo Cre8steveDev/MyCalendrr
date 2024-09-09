@@ -141,6 +141,47 @@ const appointmentFormField = [
   },
 ];
 
+// Creating Booking
+const bookingSchema = z.object({
+  full_name: z
+    .string()
+    .trim()
+    .min(3, 'Please provide a valid full name')
+    .includes(' ', { message: 'Please provide a valid full name' }),
+
+  email: z.string().trim().email({
+    message:
+      'Please provide a valid email address to be contacted and for receipt.',
+  }),
+
+  phone_number: z
+    .string()
+    .trim()
+    .min(10, 'Kindly provide a valid phone number of at least 10 characters.'),
+});
+
+// Defaults
+const bookingDefault = {
+  full_name: '',
+  phone_number: '',
+  email: '',
+};
+
+const bookingFormField = [
+  {
+    name: 'full_name',
+    placeholder: 'Provide your full name',
+  },
+  {
+    name: 'email',
+    placeholder: 'Enter your email address.',
+  },
+  {
+    name: 'phone_number',
+    placeholder: 'Enter your phone number.',
+  },
+];
+
 // Export Schemas
 export {
   registerFormSchema,
@@ -152,4 +193,7 @@ export {
   appointmentFormField,
   appointmentDefault,
   appointmentSchema,
+  bookingSchema,
+  bookingDefault,
+  bookingFormField,
 };

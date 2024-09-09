@@ -11,10 +11,12 @@ import StatCard from './StatCard';
 import getTimeOfDayGreeting from '@/utils/greeting';
 import BookingHistory from './BookingHistory';
 import API from '@/lib/API';
+import parseAmount from '@/utils/parseAmount';
 
 const Overview = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [overviewData, setOverviewData] = useState<TOverviewData>();
   const user = useUser();
   const token = useToken();
 
@@ -27,7 +29,7 @@ const Overview = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log('DATA RECEIVED: ', res.data);
+        setOverviewData((res.data as any).data as TOverviewData);
 
         //
       } catch (error: any) {
@@ -37,6 +39,7 @@ const Overview = () => {
         }
 
         console.log(error);
+        setOverviewData(undefined);
       } finally {
         setLoading(false);
       }
@@ -55,6 +58,7 @@ const Overview = () => {
   // Return JSX After Fetching Data
   return (
     <div className="font-poppins bg-slate-50 w-full p-4 animate-fadein pl-6">
+      {/*   */}
       <h2 className="text-xl">
         {getTimeOfDayGreeting()}, {user?.full_name.split(' ')[0]} 👋
       </h2>
@@ -62,19 +66,41 @@ const Overview = () => {
       {/* Separator */}
       <hr className="my-3" />
 
-      {/* Top Stats */}
-      <div className="flex gap-4 mt-4">
-        <StatCard label="No. of Appointments" value="0" />
-        <StatCard label="Amount Earned" value="300k" subtext="35 Bookings" />
-      </div>
+      {overviewData && (
+        <>
+          {/* Top Stats */}
+          <div className="flex gap-4 mt-4">
+            <StatCard
+              label="No. of Appointments"
+              value={overviewData.appointments}
+            />
+            <StatCard
+              label="Amount Earned"
+              value={parseAmount(overviewData.amount_earned)}
+              subtext={`${overviewData.bookings.length} Bookings`}
+            />
+          </div>
+          {/* Booking History */}
+          <div className="mt-4">
+            <h2 className="font-semibold text-slate-600">Booking History</h2>
+            <BookingHistory />
+          </div>{' '}
+        </>
+      )}
 
-      {/* Booking History */}
-      <div className="mt-4">
-        <h2 className="font-semibold text-slate-600">Booking History</h2>
-        <BookingHistory />
-      </div>
+      {!overviewData && (
+        <div>
+          <h1>Data not found</h1>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Overview;
+
+type TOverviewData = {
+  appointments: number;
+  amount_earned: number;
+  bookings: any[];
+};

@@ -2,7 +2,7 @@ import uuid
 import random
 from app import db
 from sqlalchemy.dialects.postgresql import UUID, ARRAY, JSONB
-from sqlalchemy import Boolean, Integer, Numeric, String, Column, BigInteger, Float
+from sqlalchemy import Boolean, Integer, String, Column, BigInteger, Float
 from datetime import datetime, timedelta
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.mutable import MutableList
@@ -25,7 +25,7 @@ class User(db.Model):
         role (USER or ADMIN)
         account_verified (Boolean)
 
-        bookings a json of booking type
+        bookings a json of booking type 
 
     Methods:
         generate_otp(): Generate One-Time Password
@@ -46,6 +46,8 @@ class User(db.Model):
     email = Column(String(120), unique=True, nullable=False)
     password = Column(String(200), nullable=False)
     phone_number = Column(String(20), nullable=False)
+    
+    photo_url = Column(String(100), default="/avatar.png")
 
     company_name = Column(String(100))
     profession = Column(String(100))
@@ -90,6 +92,7 @@ class User(db.Model):
 
     # Get the dictionary representation
     def to_dict(self):
+        
         user_dict = {
             "email": self.email,
             "full_name": self.full_name,
@@ -102,6 +105,23 @@ class User(db.Model):
             "bank_account": self.bank_account,
             "bookings": self.bookings,
             "account_verified": self.account_verified,
+            "photo_url": self.photo_url
         }
 
         return user_dict
+    
+        # Get the dictionary representation
+    def to_appointment_dict(self):
+        
+        user_dict = {
+            "email": self.email,
+            "full_name": self.full_name,
+            "phone_number": self.phone_number,
+            "company_name": self.company_name,
+            "profession": self.profession,
+            "title": self.title,
+            "photo_url": self.photo_url
+        }
+
+        return user_dict
+

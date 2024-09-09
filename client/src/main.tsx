@@ -12,6 +12,7 @@ import Overview from './components/dashboard/Overview.tsx';
 import Appointments from './components/dashboard/Appointments.tsx';
 import Settings from './components/dashboard/Settings.tsx';
 import AdminSupport from './components/dashboard/AdminSupport.tsx';
+import Booking from './routes/Booking.tsx';
 
 /**
  * Router Object to add for client side
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           { path: 'settings', element: <Settings /> },
           { path: 'support', element: <AdminSupport /> },
         ],
+      },
+      {
+        path: '/appt/:appointment_id',
+        element: <Booking />,
       },
     ],
   },

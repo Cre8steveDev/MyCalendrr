@@ -13,7 +13,6 @@ const BookingHistory = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 3000);
-    console.log(token);
 
     return () => clearTimeout(timer);
   }, [token]);

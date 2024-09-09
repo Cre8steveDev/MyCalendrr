@@ -2,7 +2,7 @@ import React from 'react';
 
 type StatCard = {
   label: string;
-  value: string;
+  value: string | number;
   subtext?: string;
 };
 
@@ -14,8 +14,8 @@ type StatCard = {
 const StatCard: React.FC<StatCard> = ({ label, value, subtext }) => {
   return (
     <div className="rounded-md p-6 bg-white flex flex-col justify-center items-center">
-      <p className="w-[70%] text-center leading-tight">{label}</p>
-      <p className="text-6xl font-bold text-slate-500">{value}</p>
+      <p className="w-[90%] text-center leading-tight">{label}</p>
+      <p className="text-5xl font-bold text-slate-500">{value}</p>
       {subtext && <p className="text-slate-500 text-xs">{subtext}</p>}
     </div>
   );

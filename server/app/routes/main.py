@@ -19,7 +19,6 @@ def index():
 def get_dashboard_data():
 
     user = None
-    print("HIT THE ENDPOINT!!!", get_jwt_identity())
 
     try:
         user = get_validated_user(get_jwt_identity())
