@@ -13,6 +13,7 @@ import Appointments from './components/dashboard/Appointments.tsx';
 import Settings from './components/dashboard/Settings.tsx';
 import AdminSupport from './components/dashboard/AdminSupport.tsx';
 import Booking from './routes/Booking.tsx';
+import ErrorBoundary from './components/layout/ErrorBoundary.tsx';
 
 /**
  * Router Object to add for client side
@@ -56,6 +57,8 @@ const router = createBrowserRouter([
 // Compile route and render element on the DOM
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ErrorBoundary>
+      <RouterProvider router={router} />
+    </ErrorBoundary>
   </StrictMode>
 );

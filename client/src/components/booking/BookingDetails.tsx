@@ -14,7 +14,7 @@ const BookingDetails: React.FC<BookingCompType> = ({ appointment }) => {
         <Separator />
 
         {/* Description for appointment */}
-        <p className="whitespace-pre-wrap text-justify pr-3 ">
+        <p className="whitespace-pre-wrap sm:text-justify pr-3 text-[15px] sm:text-base">
           {appointment.description}
         </p>
       </div>

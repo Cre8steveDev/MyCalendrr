@@ -81,7 +81,7 @@ const Overview = () => {
             <StatCard
               label="No. of Appointments"
               value={overviewData.appointments}
-              className="bg-orange-600 text-white"
+              className="bg-orange-500 text-white"
             />
             <StatCard
               label="Amount Earned"

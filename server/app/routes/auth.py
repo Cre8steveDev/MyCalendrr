@@ -1,8 +1,10 @@
 from app import db, bcrypt
 from app.models.user import User
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from datetime import timedelta
+
+from app.utils.utilities import get_validated_user
 
 auth = Blueprint("auth", __name__)
 
@@ -111,4 +113,79 @@ def login():
                 "user": None,
             }),
             500,
+        )
+
+
+@auth.route("/profile", methods=["GET"])
+@jwt_required()
+def get_profile_form_data():
+    try:
+        user = get_validated_user(get_jwt_identity())
+
+        if not user:
+            return (
+                jsonify({
+                    "success": False,
+                    "message": "Unable to validate user. Please log in again.",
+                    "user": None,
+                }),
+                403,
+            )
+
+        return (
+            jsonify({
+                "success": True,
+                "message": "Data Retrieved for User",
+                "user": user.to_dict()
+            }),
+            200,
+        )
+
+    except Exception as e:
+        print(e)
+
+        return (
+            jsonify({
+                "success": False,
+                "message": f"Error retrieving User Data.",
+                "user": None,
+            }),
+            400,
+        )
+
+
+@auth.route("/profile/update", methods=["POST"])
+@jwt_required()
+def profile_update():
+    try:
+        user = get_validated_user(get_jwt_identity())
+
+        if not user:
+            return (
+                jsonify({
+                    "success": False,
+                    "message": "Unable to validate user. Please log in again.",
+                    "user": None,
+                }),
+                403,
+            )
+
+        return (
+            jsonify({
+                "success": True,
+                "message": "Profile Data Updated Successfully.",
+            }),
+            200,
+        )
+
+    except Exception as e:
+        print(e)
+
+        return (
+            jsonify({
+                "success": False,
+                "message": f"Error retrieving User Data.",
+                "user": None,
+            }),
+            400,
         )

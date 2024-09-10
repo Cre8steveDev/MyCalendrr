@@ -103,8 +103,8 @@ class User(db.Model):
     def to_dict(self):
 
         user_dict = {
-            "email": self.email,
             "full_name": self.full_name,
+            "email": self.email,
             "phone_number": self.phone_number,
             "company_name": self.company_name,
             "profession": self.profession,

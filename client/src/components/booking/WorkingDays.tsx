@@ -11,10 +11,10 @@ type TWorkingDays = {
 
 const WorkingDays: React.FC<TWorkingDays> = ({ days }) => {
   return (
-    <div className="p-1 mt-3 text-xs">
+    <div className="p-1 mt-3 text-xs text-center">
       <p>I'm Available for the following days:</p>
 
-      <div className="flex flex-wrap gap-2 mt-2">
+      <div className="flex flex-wrap gap-2 mt-2 justify-center">
         {days.map((day) => (
           <article
             key={day}

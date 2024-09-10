@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { toastError, toastSuccess } from '@/hooks/useToasts';
 import API from '@/lib/API';
 import { useState } from 'react';
+import Separator from '../common/Separator';
 
 // Type for the component
 type CompProp = {
@@ -31,6 +32,7 @@ type CompProp = {
   appointment_id: string;
   appointment_title: string;
   amount_paid: number;
+  contact_email: string;
 };
 
 /**
@@ -44,6 +46,7 @@ const CreateBookingComp: React.FC<CompProp> = ({
   appointment_id,
   appointment_title,
   amount_paid,
+  contact_email,
 }) => {
   // Create react hook form with Zod validation
   const form = useForm<z.infer<typeof bookingSchema>>({
@@ -109,13 +112,22 @@ const CreateBookingComp: React.FC<CompProp> = ({
         </div>
 
         {/* The Form Component  */}
-        <div>
-          <p className="text-center text-xs mt-3">Booking for:</p>
-          <h3 className="text-center">{appointment_title}</h3>
+        <div className="flex flex-col justify-center py-4 sm:py-8">
+          <p className="text-center w-[80%] mx-auto">
+            Welcome to our easy-to-use booking system. We're excited to assist
+            you!
+          </p>
+
+          <Separator />
+
+          <p className="text-center text-xs mt-3">Book Your Appointment</p>
+          <h3 className="text-center font-bold text-xl text-slate-700">
+            {appointment_title}
+          </h3>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto mb-12 max-w-[500px] space-y-3  sm:p-4 transition-all ease-linear"
+              className="mx-auto  max-w-[600px] space-y-3  sm:p-4 transition-all ease-linear"
             >
               {bookingFormField.map((form_field, index) => (
                 <FormField
@@ -173,6 +185,16 @@ const CreateBookingComp: React.FC<CompProp> = ({
               >
                 Close Modal
               </Button>
+
+              {/* Contact or reschedule option */}
+              <div className="text-center text-xs">
+                <p>Need to reschedule or have questions? Contact: </p>
+                <a href={`mailto:${contact_email}`}>
+                  <p className="bg-green-600 mt-2 w-fit mx-auto px-5 py-1 rounded-lg text-sm text-white hover:opacity-80 transition-opacity duration-300">
+                    {contact_email}
+                  </p>
+                </a>
+              </div>
             </form>
           </Form>
         </div>

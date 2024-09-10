@@ -78,9 +78,9 @@ const Booking = () => {
           </div>
 
           <div className="flex py-8 mx-auto justify-center md:flex-row-reverse flex-col-reverse gap-5">
-            <div className="self-start">
+            <div className="sm:self-start mx-auto">
               {/* Calendear Info */}
-              <p className="pl-8 -mb-5 text-slate-500">
+              <p className="pl-8 -mb-5 text-slate-500 text-center sm:text-left">
                 Pick a Date from the Calender
               </p>
 
@@ -124,6 +124,7 @@ const Booking = () => {
           appointment_title={appointment.title}
           setModalVisibility={setShowBooking}
           amount_paid={appointment.amount_payable}
+          contact_email={appointment.user.email}
         />
       )}
     </ContainerWithMaxWidth>

@@ -49,3 +49,22 @@ type TOverviewData = {
   bookings: TBooking[];
   user: AppointmentBooking['user'];
 };
+
+export type ProfileResponse = {
+  data: {
+    user: ProfileUser;
+  };
+};
+
+export type ProfileUser = {
+  full_name: string;
+  email: string;
+  phone_number: string;
+  company_name: string | undefined;
+  profession: string | undefined;
+  title: string | undefined;
+  account_verified: boolean;
+  bank_account: string | undefined;
+  bank_name: string | undefined;
+  photo_url: string | undefined;
+};
